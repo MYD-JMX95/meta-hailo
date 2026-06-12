@@ -3,7 +3,7 @@ DESCRIPTION = "hailo pcie driver \
                the recipe calls the compilation process with the proper cross-compiler and kernel directory. \
                the output of the compilation (hailo_pci.ko) is copied to the target's rootfs"
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://../../LICENSE;md5=39bba7d2cf0ba1036f2a6e2be52fe3f0"
 
 SRC_URI = "git://git@github.com/hailo-ai/hailort-drivers.git;protocol=https;branch=hailo8"
@@ -16,3 +16,9 @@ S = "${WORKDIR}/git/linux/pcie"
 EXTRA_OEMAKE += "KERNEL_DIR=${STAGING_KERNEL_DIR}"
 MAKE_TARGETS = "all"
 MODULES_INSTALL_TARGET = "install"
+
+# Kernel modules embed build paths; suppress the buildpaths QA check
+# Use INSANE_SKIP with MACHINE-specific override since the kernel module
+# package gets version appended (kernel-module-hailo-pci-{kernel-version})
+INSANE_SKIP:${PN} = "buildpaths"
+INSANE_SKIP:${PN}-dbg = "buildpaths"
