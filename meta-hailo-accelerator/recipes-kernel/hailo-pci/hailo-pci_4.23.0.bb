@@ -10,7 +10,6 @@ SRC_URI = "git://git@github.com/hailo-ai/hailort-drivers.git;protocol=https;bran
 SRCREV = "ce1087bfe8132c99b41374e3128fc78612a3f492"
 
 inherit module
-
 S = "${WORKDIR}/git/linux/pcie"
 
 EXTRA_OEMAKE += "KERNEL_DIR=${STAGING_KERNEL_DIR}"
@@ -20,5 +19,4 @@ MODULES_INSTALL_TARGET = "install"
 # Kernel modules embed build paths; suppress the buildpaths QA check
 # Use INSANE_SKIP with MACHINE-specific override since the kernel module
 # package gets version appended (kernel-module-hailo-pci-{kernel-version})
-INSANE_SKIP:${PN} = "buildpaths"
-INSANE_SKIP:${PN}-dbg = "buildpaths"
+INSANE_SKIP = "buildpaths"
